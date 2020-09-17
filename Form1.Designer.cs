@@ -65,6 +65,7 @@
             this.btnConvertir.TabIndex = 2;
             this.btnConvertir.Text = "3: Convertir";
             this.btnConvertir.UseVisualStyleBackColor = true;
+            this.btnConvertir.Click += new System.EventHandler(this.btnConvertir_Click);
             // 
             // openFileDialog1
             // 

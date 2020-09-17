@@ -8,13 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 namespace ConvertIMG
 {
     public partial class Form1 : Form
     {
         string nameFile = "";
-        string formato = "";
+        string nameFileFromat = "";
+        string formato="";
+        Imagen imgObj;
         public Form1()
         {
             InitializeComponent();
@@ -26,7 +29,7 @@ namespace ConvertIMG
             comboBox1.Items.Add("png");
             comboBox1.Items.Add("gif");
             comboBox1.Items.Add("bmp");
-            //comboBox1.Enabled = false;
+            comboBox1.Enabled = false;
             
             btnConvertir.Enabled = false;
         }
@@ -37,10 +40,12 @@ namespace ConvertIMG
            
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                //nameFile = Path.GetFileNameWithoutExtension(openFileDialog1.FileName);
-                    nameFile = openFileDialog1.SafeFileName;
-                    label1.Text ="Archivo '"+nameFile+"' seleccionado ";
+                    nameFile = Path.GetFileNameWithoutExtension(openFileDialog1.FileName);
+                    nameFileFromat = openFileDialog1.FileName;
+                    label1.Text ="Archivo '"+nameFileFromat+"' seleccionado ";
                     comboBox1.Enabled = true;
+                    imgObj = new Imagen(openFileDialog1.FileName, nameFile);                   
+                    
                 }                
            
         }
@@ -52,6 +57,14 @@ namespace ConvertIMG
                 btnConvertir.Enabled = true;
             }
             formato = comboBox1.Items[comboBox1.SelectedIndex].ToString();
+        }
+
+        private void btnConvertir_Click(object sender, EventArgs e)
+        {
+            imgObj.Convetir(formato);
+            MessageBox.Show("Imagen Convertida (づ｡◕‿‿◕｡)づ", "ConvertIMG");
+            Process.Start(@"C:\ConvertIMG\");
+
         }
     }
 }
